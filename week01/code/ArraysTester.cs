@@ -32,6 +32,8 @@ public static class ArraysTester {
     /// integer greater than 0.
     /// </summary>
     /// <returns>array of doubles that are the multiples of the supplied number</returns>
+
+
     private static double[] MultiplesOf(double number, int length)
     {
         // TODO Problem 1 Start
@@ -39,8 +41,20 @@ public static class ArraysTester {
         // step by step before you write the code. The plan should be clear enough that it could
         // be implemented by another person.
 
-        return new double[0]; // replace this return statement with your own
+        // Initialize an array to store the multiples
+        double[] multiples = new double[length];
+
+        // Iterate 'length' times to fill the array with multiples
+        for (int i = 0; i < length; i++)
+        {
+            // Calculate the multiple of 'number' and store it in the array
+            multiples[i] = number * (i + 1);
+        }
+
+        // Return the array containing the multiples
+        return multiples;
     }
+
     
     /// <summary>
     /// Rotate the 'data' to the right by the 'amount'.  For example, if the data is 
@@ -50,12 +64,39 @@ public static class ArraysTester {
     /// <br /><br />
     /// Because a list is dynamic, this function will modify the existing <c>data</c> list rather than returning a new list.
     /// </summary>
+
     private static void RotateListRight(List<int> data, int amount)
     {
-        // TODO Problem 2 Start
-        // Remember: Using comments in your program, write down your process for solving this problem
-        // step by step before you write the code. The plan should be clear enough that it could
-        // be implemented by another person.
+        // Step 1: Check if the amount to rotate is within the valid range
+        if (amount < 1 || amount > data.Count)
+        {
+            return; // Invalid rotation amount
+        }
 
+        // Step 2: Calculate the actual amount of rotation needed
+        int rotationAmount = amount % data.Count;
+
+        // Step 3: If rotation amount is 0, return without performing any rotation
+        if (rotationAmount == 0)
+        {
+            return;
+        }
+
+        // Step 4: Determine the pivot index
+        int pivotIndex = data.Count - rotationAmount;
+
+        // Step 5: Create two new lists
+        List<int> sublist1 = data.GetRange(pivotIndex, rotationAmount);
+        List<int> sublist2 = data.GetRange(0, pivotIndex);
+
+        // Step 6: Concatenate the two lists in reverse order and assign them back to the original list
+        // data.Clear();
+        // data.AddRange(sublist1);
+        // data.AddRange(sublist2);
+
+        // Alternatively, the above three lines can be replaced with:
+        data.InsertRange(0, sublist1);
+        data.InsertRange(sublist1.Count, sublist2);
     }
+
 }
