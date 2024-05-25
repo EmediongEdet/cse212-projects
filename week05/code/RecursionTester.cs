@@ -147,7 +147,13 @@ public static class RecursionTester {
     /// </summary>
     public static int SumSquaresRecursive(int n) {
         // TODO Start Problem 1
-        return 0;
+        // Base case: if n <= 0, return 0
+        if (n <= 0) {
+            return 0;
+        }
+        // Recursive case: sum of squares up to n is n^2 + sum of squares up to n-1
+        return n * n + SumSquaresRecursive(n - 1);
+
     }
 
     /// <summary>
@@ -171,6 +177,19 @@ public static class RecursionTester {
     /// </summary>
     public static void PermutationsChoose(string letters, int size, string word = "") {
         // TODO Start Problem 2
+                // Base case: If the current word length is equal to the required size, print the word
+        if (word.Length == size) {
+            Console.WriteLine(word);
+            return;
+        }
+
+        // Recursive case: Iterate over each letter, forming a new permutation
+        for (int i = 0; i < letters.Length; i++) {
+            // Create new string excluding the current letter
+            string newLetters = letters.Substring(0, i) + letters.Substring(i + 1);
+            // Append current letter to the word and recurse
+            PermutationsChoose(newLetters, size, word + letters[i]);
+        }
     }
 
     /// <summary>
@@ -249,6 +268,19 @@ public static class RecursionTester {
     /// </summary>
     public static void WildcardBinary(string pattern) {
         // TODO Start Problem 4
+        if (!pattern.Contains('*')) {
+            Console.WriteLine(pattern);
+            return;
+        }
+
+        // Find the index of the first wildcard
+        int index = pattern.IndexOf('*');
+
+        // Replace the wildcard with '0' and recurse
+        WildcardBinary(pattern.Substring(0, index) + '0' + pattern.Substring(index + 1));
+        
+        // Replace the wildcard with '1' and recurse
+        WildcardBinary(pattern.Substring(0, index) + '1' + pattern.Substring(index + 1));
     }
 
     /// <summary>
